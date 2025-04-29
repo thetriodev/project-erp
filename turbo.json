@@ -16,6 +16,17 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"]
+    },
+    "format": {
+      "dependsOn": ["^format"],
+      "cache": true
+    },
+    "format:check": {
+      "dependsOn": ["^format:check"],
+      "cache": true
     }
   }
 }
