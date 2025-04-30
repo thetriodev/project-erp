@@ -9,6 +9,7 @@
     "lint:fix": "turbo lint:fix",
     "format": "prettier --write . --ignore-path .prettierignore",
     "format:check": "prettier --check . --ignore-path .prettierignore",
+    "ui": "pnpm --filter=ui shadcn",
     "web:dev": "pnpm --filter=web dev",
     "server:dev": "pnpm --filter=server dev"
   },
