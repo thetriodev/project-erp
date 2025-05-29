@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from 'next/font/google'
-
 import '@workspace/ui/globals.css'
 import { Providers } from '@/components/providers'
-import React = require('react')
+import { Toaster } from 'sonner'
+
 
 const fontSans = Geist({
   subsets: ['latin'],
@@ -14,6 +14,9 @@ const fontMono = Geist_Mono({
   variable: '--font-mono',
 })
 
+// meta function 
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,6 +26,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   )
