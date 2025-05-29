@@ -1,7 +1,12 @@
+import { RegisterForm } from '@/components/auth/registration-form'
 import React from 'react'
 
-export const page = () => {
+const RegistrationPage = () => {
   return (
-    <div>page</div>
+    <div className="flex items-center justify-center min-h-svh">
+      <RegisterForm />
+    </div>
   )
 }
+
+export default RegistrationPage

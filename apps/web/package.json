@@ -14,7 +14,6 @@
     "format:check": "prettier --check . --ignore-path .prettierignore"
   },
   "dependencies": {
-    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.1.2",
     "@workspace/ui": "workspace:*",
     "lucide-react": "^0.475.0",
