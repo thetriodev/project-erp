@@ -10,6 +10,6 @@ const moduleRoutes = [
   },
 ]
 
-moduleRoutes.forEach(route => appRoutes.use(route.path, route.route))
+moduleRoutes.forEach(route => appRoutes.use(route?.path, route?.route))
 
 export default appRoutes

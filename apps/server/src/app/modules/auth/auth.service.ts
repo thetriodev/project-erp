@@ -58,7 +58,7 @@ const loginUser = async (payload: {
   }
 }
 
-// * Update user profile (Accessible to Landlords and Tenants)
+// * Update user profile (Accessible to Managers and Users)
 const updateProfile = async (id: string, payload: Partial<IUser>): Promise<Partial<IUser>> => {
   const updatedUser = await User.findByIdAndUpdate(id, payload, { new: true })
   if (!updatedUser) {
@@ -73,7 +73,7 @@ const updateProfile = async (id: string, payload: Partial<IUser>): Promise<Parti
   }
 }
 
-// * Update user password (Accessible to Landlords and Tenants)
+// * Update user password (Accessible to Managers and Users)
 const updatePassword = async (
   id: string,
   payload: { currentPassword: string; newPassword: string },
@@ -107,7 +107,7 @@ const updatePassword = async (
   return updatedUser
 }
 
-// * Update user delete status (Accessible to Landlords and Tenants)
+// * Update user delete status (Accessible to Managers and Users)
 // Note: This function deactivates a user by setting isActive to false.
 const updateDeletedStatus = async (id: string): Promise<IUser> => {
   const updatedUser = await User.findByIdAndUpdate(id, { isActive: false }, { new: true })

@@ -21,7 +21,7 @@ router.post('/login', AuthController.loginUser)
 // * Update user profile (Accessible to all authenticated users)
 router.patch(
   '/update-profile',
-  Authentication(UserRole.LANDLORD, UserRole.TENANT, UserRole.ADMIN),
+  Authentication(UserRole.MANAGER, UserRole.USER, UserRole.ADMIN),
   validateRequest(AuthValidation.updateProfileZodSchema),
   AuthController.updateProfile,
 )
@@ -29,14 +29,14 @@ router.patch(
 // * Update user password (Accessible to all authenticated users)
 router.patch(
   '/update-password',
-  Authentication(UserRole.LANDLORD, UserRole.TENANT, UserRole.ADMIN),
+  Authentication(UserRole.MANAGER, UserRole.USER, UserRole.ADMIN),
   AuthController.updatePassword,
 )
 
-// * Update user delete status (isDeleted property) (Accessible to Landlords and Tenants)
+// * Update user delete status (isDeleted property) (Accessible to MANAGERs and USERs)
 router.post(
   '/:id/delete',
-  Authentication(UserRole.LANDLORD, UserRole.TENANT),
+  Authentication(UserRole.MANAGER, UserRole.USER),
   AuthController.updateDeletedStatus,
 )
 

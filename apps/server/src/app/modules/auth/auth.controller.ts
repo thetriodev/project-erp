@@ -29,7 +29,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   next()
 }
 
-// * Update user profile (Accessible to Landlords and Tenants)
+// * Update user profile (Accessible to manager and user)
 const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
   const user = req.user
   const { userId: id } = user
@@ -43,7 +43,7 @@ const updateProfile = async (req: Request, res: Response, next: NextFunction) =>
   next()
 }
 
-// * Update user password (Accessible to Landlords and Tenants)
+// * Update user password (Accessible to manager and user))
 const updatePassword = async (req: Request, res: Response, next: NextFunction) => {
   const user = req.user
   const { userId: id } = user
@@ -57,7 +57,7 @@ const updatePassword = async (req: Request, res: Response, next: NextFunction) =
   next()
 }
 
-// * Update user delete status (Accessible to Landlords and Tenants)
+// * Update user delete status (Accessible to manager and user)
 const updateDeletedStatus = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params
   const result = await AuthService.updateDeletedStatus(id)
