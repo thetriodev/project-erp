@@ -15,21 +15,50 @@ import {
   CardTitle,
 } from '@workspace/ui/components/card'
 import { toast } from 'sonner'
+import useAxiosPublic from '@/hooks/useAxiosPublic'
+import { useForm } from 'react-hook-form'
+
+export type loginFormData = {
+  email: string
+  password: string
+}
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const axiosPublic = useAxiosPublic()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<loginFormData>()
+
+  const handleLogin = async (data: loginFormData) => {
     setIsLoading(true)
 
-    // Simulate login
-    setTimeout(() => {
-      setIsLoading(false)
-      toast('Login successful', { description: 'You have been logged in successfully.' })
-      router.push('/dashboard')
-    }, 1000)
+    // save user to database
+    const payload = { email: data.email, password: data.password }
+
+    try {
+      const response = await axiosPublic.post('/auth/login', payload)
+      if (response.data.success) {
+        toast.success('Login successful', {
+          description: 'You have been logged in successfully.',
+        })
+        router.push('/dashboard')
+      }
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        toast.error('Invalid email or password')
+      } else {
+        if (error.response?.data?.message) {
+          toast.error(error.response.data.message)
+        } else {
+          toast.error('Login failed')
+        }
+      }
+    }
   }
 
   return (
@@ -38,23 +67,24 @@ export function LoginForm() {
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>Enter your email and password to access your account</CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <h4>Email</h4>
-            <Input id="email" type="email" placeholder="m@example.com" required />
+            <Input
+              type="email"
+              {...register('email', { required: 'Email is required' })}
+              placeholder="m@example.com"
+            />
+            {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
           </div>
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <h4>Password</h4>
-              <Link
-                href="/reset-password"
-                className="text-sm text-primary underline-offset-4 hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
-            <Input id="password" type="password" required />
+            <h4>Password</h4>
+            <Input
+              type="password"
+              {...register('password', { required: 'Password is required' })}
+            />
+            {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4 mt-4">
