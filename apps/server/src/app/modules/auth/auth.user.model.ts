@@ -37,7 +37,7 @@ const UserSchema: Schema<IUser> = new mongoose.Schema(
     role: {
       type: String,
       enum: UserRole,
-      default: UserRole.TENANT,
+      default: UserRole.USER,
     },
     isActive: {
       type: Boolean,

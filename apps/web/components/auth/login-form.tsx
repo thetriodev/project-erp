@@ -38,7 +38,7 @@ export function LoginForm() {
     setIsLoading(true)
 
     // save user to database
-    const payload = { email: data.email, password: data.password }
+    const payload = { email: data?.email, password: data?.password }
 
     try {
       const response = await axiosPublic.post('/auth/login', payload)

@@ -9,6 +9,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true)
   const axiosPublic = useAxiosPublic()
   const router = useRouter()
+
   //   register user function
   const registerUser = async (payload: RegistrationFormData) => {
     try {
