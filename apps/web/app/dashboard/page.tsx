@@ -1,5 +1,7 @@
 "use client"
 
+import { AdminDashboard } from "@/components/dashboard/admin/admin-dashboard"
+
 // import { useAuth } from "@/components/auth-provider"
 // import { OwnerDashboard } from "@/components/dashboard/owner-dashboard"
 // import { ManagerDashboard } from "@/components/dashboard/manager-dashboard"
@@ -8,7 +10,7 @@
 
 export default function Dashboard() {
     return <div>
-        
+        <AdminDashboard />
     </div>
 //   const { user, isLoading } = useAuth()
 

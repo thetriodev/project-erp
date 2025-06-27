@@ -20,7 +20,7 @@ const user = { name: "John Doe" }
 const logout = () => {}
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-sidebar px-3">
       <SidebarTrigger />
       <div className="flex-1" />
       <DropdownMenu>

@@ -15,11 +15,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SidebarSeparator,
 } from '@workspace/ui/components/sidebar'
 import { Button } from '@workspace/ui/components/button'
 import Image from 'next/image'
-// import { useAuth } from "@/components/auth-provider"
 
 export function SideNavbar() {
   //   const { user } = useAuth()
@@ -33,7 +31,7 @@ export function SideNavbar() {
   return (
     <Sidebar>
       {/* side bar header */}
-      <SidebarHeader>
+      <SidebarHeader className='border-b'>
         <div className="flex items-center gap-2 px-4 py-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             ERP
@@ -42,7 +40,7 @@ export function SideNavbar() {
         </div>
       </SidebarHeader>
       {/* separator */}
-      <SidebarSeparator />
+      {/* <SidebarSeparator /> */}
 
       {/* side bar content */}
       <SidebarContent>
