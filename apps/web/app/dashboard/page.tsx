@@ -7,7 +7,9 @@
 
 
 export default function Dashboard() {
-    return <div>dashboard</div>
+    return <div>
+        
+    </div>
 //   const { user, isLoading } = useAuth()
 
 //   if (isLoading) {
