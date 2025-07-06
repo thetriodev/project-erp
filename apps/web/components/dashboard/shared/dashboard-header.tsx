@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { Bell, Menu } from "lucide-react"
+import { Bell, Menu, Moon, Sun } from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -9,15 +9,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
-import { SidebarTrigger } from "@workspace/ui/components/sidebar"
+} from '@workspace/ui/components/dropdown-menu'
+import { SidebarTrigger } from '@workspace/ui/components/sidebar'
 // import { useAuth } from "@/components/auth-provider"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from '@workspace/ui/components/button'
+import { useTheme } from 'next-themes'
 
 export function DashboardHeader() {
-//   const { user, logout } = useAuth()
-const user = { name: "John Doe" }
-const logout = () => {}
+  const { setTheme } = useTheme()
+  //   const { user, logout } = useAuth()
+  const user = { name: 'John Doe' }
+  const logout = () => {}
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-sidebar px-3">
@@ -34,6 +36,21 @@ const logout = () => {}
           <DropdownMenuLabel>Notifications</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>No new notifications</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {/* dark and light mode toggle dropdown */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <DropdownMenu>
