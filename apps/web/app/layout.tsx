@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}>
         <ThemeProvider
           attribute="class"
-          // defaultTheme="system"
+          // defaultTheme="system" // default to 'light' on initial load but in development mode it will be 'system'
           defaultTheme='light'
           enableSystem
           disableTransitionOnChange

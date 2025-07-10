@@ -18,11 +18,9 @@ const registerUserZodSchema = z.object({
     password: z
       .string({ required_error: 'Password is required' })
       .min(6, { message: 'Password must be at least 6 characters' })
-      .max(20, { message: 'Password must be at most 20 characters' }),
-    // * Role must be either 'manager' or 'user'
-    // role: z.enum(['manager', 'user'], { required_error: 'Role is required' }),
+      .max(50, { message: 'Password must be at most 50 characters' }),
     // role will be default to user
-    // role: z.enum(['user'], { required_error: 'Role is required' }),
+    role: z.enum(['user', 'admin', 'manager'], { required_error: 'Role is required' }).default('user'),
   }),
 })
 
