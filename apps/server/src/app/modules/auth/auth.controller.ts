@@ -19,7 +19,7 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
 
 // * Login an existing user
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  const result = await AuthService.loginUser(req.body)
+  const result = await AuthService.loginUser(req.body);
   sendResponse(res, {
     statusCode: httpStatusCode.OK,
     success: true,

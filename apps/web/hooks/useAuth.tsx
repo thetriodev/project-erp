@@ -6,6 +6,7 @@ import useAxiosPublic from './useAxiosPublic'
 import { loginFormData } from '@/components/auth/login-form'
 
 export const useAuth = () => {
+  const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const axiosPublic = useAxiosPublic()
   const router = useRouter()
@@ -35,6 +36,7 @@ export const useAuth = () => {
         toast.success('Login successful', {
           description: 'You have been logged in successfully.',
         })
+        setUser(response.data.data)
         router.push('/dashboard')
       }
     } catch (error: any) {
@@ -73,6 +75,6 @@ export const useAuth = () => {
     }
   }
 
-  return { registerUser, loginUser, resetUserPassword, isLoading }
+  return { registerUser, loginUser, resetUserPassword, isLoading, user }
 }
 

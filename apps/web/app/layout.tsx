@@ -3,6 +3,7 @@ import '@workspace/ui/globals.css'
 import { Providers } from '@/components/providers'
 import { Toaster } from 'sonner'
 import { ThemeProvider } from 'next-themes'
+import { AuthProvider } from '@/provider/authProvider'
 
 const fontSans = Geist({
   subsets: ['latin'],
@@ -27,11 +28,13 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           // defaultTheme="system" // default to 'light' on initial load but in development mode it will be 'system'
-          defaultTheme='light'
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>{children}</Providers>
+          <Providers>
+            <AuthProvider>{children}</AuthProvider>
+          </Providers>
           <Toaster />
         </ThemeProvider>
       </body>

@@ -11,13 +11,13 @@ import {
   DropdownMenuTrigger,
 } from '@workspace/ui/components/dropdown-menu'
 import { SidebarTrigger } from '@workspace/ui/components/sidebar'
-// import { useAuth } from "@/components/auth-provider"
+
 import { Button } from '@workspace/ui/components/button'
 import { useTheme } from 'next-themes'
 
 export function DashboardHeader() {
   const { setTheme } = useTheme()
-  //   const { user, logout } = useAuth()
+    
   const user = { name: 'John Doe' }
   const logout = () => {}
 
@@ -25,6 +25,7 @@ export function DashboardHeader() {
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-sidebar px-3">
       <SidebarTrigger />
       <div className="flex-1" />
+      {/* notification dropdown */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon" className="rounded-full">
@@ -53,6 +54,7 @@ export function DashboardHeader() {
           <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {/* user dropdown */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm" className="gap-2">

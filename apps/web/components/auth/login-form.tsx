@@ -17,6 +17,7 @@ import {
 import { toast } from 'sonner'
 import useAxiosPublic from '@/hooks/useAxiosPublic'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '@/hooks/useAuth'
 
 export type loginFormData = {
   email: string
@@ -25,8 +26,9 @@ export type loginFormData = {
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const axiosPublic = useAxiosPublic()
+  const { loginUser, user } = useAuth()
+  console.log(user);
+  
 
   const {
     register,
@@ -39,26 +41,8 @@ export function LoginForm() {
 
     // save user to database
     const payload = { email: data?.email, password: data?.password }
-
-    try {
-      const response = await axiosPublic.post('/auth/login', payload)
-      if (response.data.success) {
-        toast.success('Login successful', {
-          description: 'You have been logged in successfully.',
-        })
-        router.push('/dashboard')
-      }
-    } catch (error: any) {
-      if (error.response?.status === 401) {
-        toast.error('Invalid email or password')
-      } else {
-        if (error.response?.data?.message) {
-          toast.error(error.response.data.message)
-        } else {
-          toast.error('Login failed')
-        }
-      }
-    }
+    loginUser(payload)
+    
   }
 
   return (
