@@ -95,6 +95,8 @@ const updateRole = async (req: Request, res: Response, next: NextFunction) => {
   next()
 }
 
+// update user active status (Admin only)
+
 // * Update user active status (Admin only)
 const updateActiveStatus = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params
