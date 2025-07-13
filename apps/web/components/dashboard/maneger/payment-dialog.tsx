@@ -17,10 +17,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { CreditCard, DollarSign } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 
+// type of demo memo
+export type TDemoMemo = {
+  id: string
+  total: number
+  paid: number
+  due: number
+}
 interface PaymentDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  memo: any
+  memo: TDemoMemo
   onPaymentRecorded: (memoId: string, amount: number, method: string) => void
 }
 

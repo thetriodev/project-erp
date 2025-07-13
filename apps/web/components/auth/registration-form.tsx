@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from '@workspace/ui/components/card'
 import useAxiosPublic from '@/hooks/useAxiosPublic'
+import { AxiosError } from 'axios'
 
 export type RegistrationFormData = {
   name: string
@@ -61,7 +62,8 @@ export function RegisterForm() {
         })
         router.push('/')
       }
-    } catch (error: any) {
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>
       toast.error(error.response?.data?.message || 'Registration failed')
     } finally {
       setIsLoading(false)

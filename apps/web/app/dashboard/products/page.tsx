@@ -30,55 +30,68 @@ import { Input } from '@workspace/ui/components/input'
 import { Button } from '@workspace/ui/components/button'
 import { AddProductDialog } from '@/components/dashboard/maneger/add-product-dialog'
 
+type ProductStatus = 'in-stock' | 'low-stock' | 'out-of-stock'
+type TProduct = {
+  id: string
+  name: string
+  sku: string
+  price: number
+  stock: number
+  reorderLevel: number
+  status: ProductStatus
+}
+
+// demo products data
+const products: TProduct[] = [
+  {
+    id: '1',
+    name: 'Premium Laptop',
+    sku: 'LAP-001',
+    price: 1299.99,
+    stock: 45,
+    reorderLevel: 10,
+    status: 'in-stock',
+  },
+  {
+    id: '2',
+    name: 'Wireless Headphones',
+    sku: 'HEAD-002',
+    price: 199.99,
+    stock: 78,
+    reorderLevel: 15,
+    status: 'in-stock',
+  },
+  {
+    id: '3',
+    name: 'Smartphone',
+    sku: 'PHONE-003',
+    price: 899.99,
+    stock: 8,
+    reorderLevel: 10,
+    status: 'low-stock',
+  },
+  {
+    id: '4',
+    name: 'Smart Watch',
+    sku: 'WATCH-004',
+    price: 249.99,
+    stock: 0,
+    reorderLevel: 5,
+    status: 'out-of-stock',
+  },
+  {
+    id: '5',
+    name: 'Bluetooth Speaker',
+    sku: 'SPEAK-005',
+    price: 129.99,
+    stock: 32,
+    reorderLevel: 8,
+    status: 'in-stock',
+  },
+]
+
 export default function ProductsPage() {
   const [showAddProduct, setShowAddProduct] = useState(false)
-  const [products, setProducts] = useState([
-    {
-      id: '1',
-      name: 'Premium Laptop',
-      sku: 'LAP-001',
-      price: 1299.99,
-      stock: 45,
-      reorderLevel: 10,
-      status: 'in-stock',
-    },
-    {
-      id: '2',
-      name: 'Wireless Headphones',
-      sku: 'HEAD-002',
-      price: 199.99,
-      stock: 78,
-      reorderLevel: 15,
-      status: 'in-stock',
-    },
-    {
-      id: '3',
-      name: 'Smartphone',
-      sku: 'PHONE-003',
-      price: 899.99,
-      stock: 8,
-      reorderLevel: 10,
-      status: 'low-stock',
-    },
-    {
-      id: '4',
-      name: 'Smart Watch',
-      sku: 'WATCH-004',
-      price: 249.99,
-      stock: 0,
-      reorderLevel: 5,
-      status: 'out-of-stock',
-    },
-    {
-      id: '5',
-      name: 'Bluetooth Speaker',
-      sku: 'SPEAK-005',
-      price: 129.99,
-      stock: 32,
-      reorderLevel: 8,
-      status: 'in-stock',
-    },
-  ])
 
   //   if (user?.role === "user") {
   //     return (

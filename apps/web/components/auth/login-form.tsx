@@ -3,7 +3,6 @@
 import type React from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { Input } from '@workspace/ui/components/input'
 import { Button } from '@workspace/ui/components/button'
 import {
@@ -14,8 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@workspace/ui/components/card'
-import { toast } from 'sonner'
-import useAxiosPublic from '@/hooks/useAxiosPublic'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@/hooks/useAuth'
 

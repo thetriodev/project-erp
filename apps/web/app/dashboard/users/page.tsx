@@ -1,9 +1,20 @@
-"use client"
-
-import { useState } from "react"
-import { Button } from "@workspace/ui/components/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@workspace/ui/components/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@workspace/ui/components/table"
+'use client'
+import { Button } from '@workspace/ui/components/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@workspace/ui/components/card'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@workspace/ui/components/table'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,55 +22,65 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
-import { Badge } from "@workspace/ui/components/badge"
-import { MoreHorizontal, Shield, ShieldAlert, UserCheck } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
-import { UserRequestsTable } from "@/components/dashboard/admin/user-requests-table"
+} from '@workspace/ui/components/dropdown-menu'
+import { Badge } from '@workspace/ui/components/badge'
+import { MoreHorizontal, Shield, ShieldAlert, UserCheck } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@workspace/ui/components/tabs'
+import { UserRequestsTable } from '@/components/dashboard/admin/user-requests-table'
 
+type UserRole = 'owner' | 'manager' | 'user'
+type UserStatus = 'active' | 'blocked'
+type TUser = {
+  id: string
+  name: string
+  email: string
+  role: UserRole
+  status: UserStatus
+  createdAt: string // Format: "YYYY-MM-DD"
+}
 
+// demo users data
+const users: TUser[] = [
+  {
+    id: '1',
+    name: 'John Doe',
+    email: 'john@example.com',
+    role: 'manager',
+    status: 'active',
+    createdAt: '2023-01-15',
+  },
+  {
+    id: '2',
+    name: 'Jane Smith',
+    email: 'jane@example.com',
+    role: 'user',
+    status: 'active',
+    createdAt: '2023-02-20',
+  },
+  {
+    id: '3',
+    name: 'Mike Johnson',
+    email: 'mike@example.com',
+    role: 'user',
+    status: 'blocked',
+    createdAt: '2023-03-10',
+  },
+  {
+    id: '4',
+    name: 'Sarah Williams',
+    email: 'sarah@example.com',
+    role: 'manager',
+    status: 'active',
+    createdAt: '2023-04-05',
+  },
+]
 export default function UsersPage() {
   const user = {
-    role: "owner",
+    role: 'owner',
     // This is just a placeholder. In a real application, you would fetch the user data from your auth provider.
   }
-
-  const [users, setUsers] = useState([
-    {
-      id: "1",
-      name: "John Doe",
-      email: "john@example.com",
-      role: "manager",
-      status: "active",
-      createdAt: "2023-01-15",
-    },
-    {
-      id: "2",
-      name: "Jane Smith",
-      email: "jane@example.com",
-      role: "user",
-      status: "active",
-      createdAt: "2023-02-20",
-    },
-    {
-      id: "3",
-      name: "Mike Johnson",
-      email: "mike@example.com",
-      role: "user",
-      status: "blocked",
-      createdAt: "2023-03-10",
-    },
-    {
-      id: "4",
-      name: "Sarah Williams",
-      email: "sarah@example.com",
-      role: "manager",
-      status: "active",
-      createdAt: "2023-04-05",
-    },
-  ])
-
-  if (user?.role !== "owner") {
+  
+  if (user?.role !== 'owner') {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-muted-foreground">You don&apos;t have permission to view this page.</p>
@@ -98,15 +119,15 @@ export default function UsersPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.map((user) => (
+                  {users.map(user => (
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          {user.role === "owner" ? (
+                          {user.role === 'owner' ? (
                             <ShieldAlert className="h-4 w-4 text-primary" />
-                          ) : user.role === "manager" ? (
+                          ) : user.role === 'manager' ? (
                             <Shield className="h-4 w-4 text-blue-500" />
                           ) : (
                             <UserCheck className="h-4 w-4 text-muted-foreground" />
@@ -115,7 +136,9 @@ export default function UsersPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={user.status === "active" ? "default" : "destructive"}>{user.status}</Badge>
+                        <Badge variant={user.status === 'active' ? 'default' : 'destructive'}>
+                          {user.status}
+                        </Badge>
                       </TableCell>
                       <TableCell>{user.createdAt}</TableCell>
                       <TableCell>
@@ -129,9 +152,13 @@ export default function UsersPage() {
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>View details</DropdownMenuItem>
-                            {user.role === "user" && <DropdownMenuItem>Promote to manager</DropdownMenuItem>}
-                            {user.status === "active" ? (
-                              <DropdownMenuItem className="text-destructive">Block user</DropdownMenuItem>
+                            {user.role === 'user' && (
+                              <DropdownMenuItem>Promote to manager</DropdownMenuItem>
+                            )}
+                            {user.status === 'active' ? (
+                              <DropdownMenuItem className="text-destructive">
+                                Block user
+                              </DropdownMenuItem>
                             ) : (
                               <DropdownMenuItem>Unblock user</DropdownMenuItem>
                             )}
