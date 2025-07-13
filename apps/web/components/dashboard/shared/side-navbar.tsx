@@ -155,7 +155,7 @@ export function SideNavbar() {
           <div className="flex items-center gap-2">
             <div className="relative h-8 w-8 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center text-xs font-medium text-gray-700">
               {user?.name ? (
-                <Image src="/placeholder-user.jpg" alt={user?.name} fill className="object-cover" />
+                <Image src="/default_user_img.png" alt={user?.name} fill className="object-cover" />
               ) : (
                 user.name
                   .split(' ')
