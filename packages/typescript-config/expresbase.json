@@ -6,10 +6,11 @@
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,           
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2022",
   }
 }
+
