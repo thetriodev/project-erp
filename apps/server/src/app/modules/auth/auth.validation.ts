@@ -5,7 +5,7 @@ const registerUserZodSchema = z.object({
     // * Name must be at least 5 characters
     name: z
       .string({ required_error: 'Name is required' })
-      .min(5, { message: 'Name must be at least 5 characters' }),
+      .min(2, { message: 'Name must be at least 2 characters' }),
     // * Must be a valid email address
     email: z
       .string({ required_error: 'Email is required' })
@@ -29,7 +29,7 @@ const updateProfileZodSchema = z.object({
     // * Name must be at least 5 characters
     name: z
       .string({ required_error: 'Name is required' })
-      .min(3, { message: 'Name must be at least 5 characters' }),
+      .min(2, { message: 'Name must be at least 2 characters' }),
     // * Must be a valid email address
     email: z
       .string({ required_error: 'Email is required' })

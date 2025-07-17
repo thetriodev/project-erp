@@ -1,10 +1,6 @@
 'use client'
-
 import type React from 'react'
-import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 import { useForm } from 'react-hook-form'
 import { Input } from '@workspace/ui/components/input'
 import { Button } from '@workspace/ui/components/button'
@@ -16,67 +12,25 @@ import {
   CardHeader,
   CardTitle,
 } from '@workspace/ui/components/card'
-import useAxiosPublic from '@/hooks/useAxiosPublic'
-import { AxiosError } from 'axios'
 
-export type RegistrationFormData = {
-  name: string
-  email: string
-  phone: string
-  password: string
-  confirmPassword: string
-}
+import { TRegistrationFormData } from '@/types/authTypes'
+import { useAuth } from '@/provider/authProvider'
 
 export function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const axiosPublic = useAxiosPublic()
+  const {isLoading, registerUser } = useAuth()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegistrationFormData>()
-
-  const handleRegister = async (data: RegistrationFormData) => {
-    setIsLoading(true)
-
-    if (data.password !== data.confirmPassword) {
-      toast.error('Passwords do not match')
-      setIsLoading(false)
-      return
-    }
-
-    // save user to database
-    const payload = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      password: data.password,
-    }
-    try {
-      const response = await axiosPublic.post('/auth/register', payload)
-      if (response.data.success) {
-        toast.success('Account created successfully', {
-          description: 'You have been registered successfully.',
-        })
-        router.push('/')
-      }
-    } catch (err) {
-      const error = err as AxiosError<{ message: string }>
-      toast.error(error.response?.data?.message || 'Registration failed')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
+  } = useForm<TRegistrationFormData>()
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">Create an account</CardTitle>
         <CardDescription>Enter your information to create an account</CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit(handleRegister)}>
+      <form onSubmit={handleSubmit(registerUser)} className="space-y-4">
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <h4>Full Name</h4>

@@ -15,11 +15,8 @@ import {
 } from '@workspace/ui/components/card'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '@/hooks/useAuth'
+import { TLoginFormData } from '@/types/authTypes'
 
-export type loginFormData = {
-  email: string
-  password: string
-}
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -31,9 +28,9 @@ export function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginFormData>()
+  } = useForm<TLoginFormData>()
 
-  const handleLogin = async (data: loginFormData) => {
+  const handleLogin = async (data: TLoginFormData) => {
     setIsLoading(true)
 
     // save user to database

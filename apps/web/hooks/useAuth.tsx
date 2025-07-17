@@ -1,9 +1,8 @@
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { RegistrationFormData } from '@/components/auth/registration-form'
 import useAxiosPublic from './useAxiosPublic'
-import { loginFormData } from '@/components/auth/login-form'
+import { TLoginFormData, TRegistrationFormData } from '@/types/authTypes'
 
 export const useAuth = () => {
   const [user, setUser] = useState(null)
@@ -12,7 +11,7 @@ export const useAuth = () => {
   const router = useRouter()
 
   //   register user function
-  const registerUser = async (payload: RegistrationFormData) => {
+  const registerUser = async (payload: TRegistrationFormData) => {
     try {
       const response = await axiosPublic.post('/auth/register', payload)
       if (response.data.success) {
@@ -28,8 +27,8 @@ export const useAuth = () => {
     }
   }
 
-//   login user function
-  const loginUser = async (payload: loginFormData) => {
+  //   login user function
+  const loginUser = async (payload: TLoginFormData) => {
     try {
       const response = await axiosPublic.post('/auth/login', payload)
       if (response.data.success) {
@@ -54,9 +53,7 @@ export const useAuth = () => {
     }
   }
 
-
-
-// reset user password function
+  // reset user password function
   const resetUserPassword = async (payload: any) => {
     try {
       const response = await axiosPublic.post('/auth/reset-password', payload)
@@ -77,4 +74,3 @@ export const useAuth = () => {
 
   return { registerUser, loginUser, resetUserPassword, isLoading, user }
 }
-
