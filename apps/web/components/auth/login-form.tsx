@@ -1,7 +1,6 @@
 'use client'
 
 import type React from 'react'
-import { useState } from 'react'
 import Link from 'next/link'
 import { Input } from '@workspace/ui/components/input'
 import { Button } from '@workspace/ui/components/button'
@@ -14,15 +13,12 @@ import {
   CardTitle,
 } from '@workspace/ui/components/card'
 import { useForm } from 'react-hook-form'
-import { useAuth } from '@/hooks/useAuth'
 import { TLoginFormData } from '@/types/authTypes'
+import { useAuth } from '@/provider/authProvider'
 
 
 export function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const { loginUser, user } = useAuth()
-  console.log(user);
-  
+  const { isLoading, loginUser } = useAuth()
 
   const {
     register,
@@ -30,14 +26,7 @@ export function LoginForm() {
     formState: { errors },
   } = useForm<TLoginFormData>()
 
-  const handleLogin = async (data: TLoginFormData) => {
-    setIsLoading(true)
-
-    // save user to database
-    const payload = { email: data?.email, password: data?.password }
-    loginUser(payload)
-    
-  }
+  
 
   return (
     <Card className="w-full max-w-md">
@@ -45,7 +34,7 @@ export function LoginForm() {
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>Enter your email and password to access your account</CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit(handleLogin)}>
+      <form onSubmit={handleSubmit(loginUser)}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <h4>Email</h4>

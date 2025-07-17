@@ -2,6 +2,7 @@ import apiInfoLogger from 'app/middlewares/apiInfoLogger'
 import errorHandler from 'app/middlewares/errorHandler'
 import notFound from 'app/middlewares/notFound'
 import appRoutes from 'app/routes/router'
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Application, Request, Response } from 'express'
 
@@ -13,7 +14,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // ** cors **
-app.use(cors())
+app.use(cors({
+  origin: [process.env.CORS_ORIGIN || 'http://localhost:3000'],
+  credentials: true,
+}))
+
+// ** cookie parser **
+app.use(cookieParser())
 
 // ** API Info Logger **
 app.use(apiInfoLogger)

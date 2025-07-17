@@ -5,7 +5,12 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import useAxiosPublic from '@/hooks/useAxiosPublic'
 import { toast } from 'sonner'
-import { TLoginFormData, TRegistrationFormData, TResetPasswordFormData, TUser } from '@/types/authTypes'
+import {
+  TLoginFormData,
+  TRegistrationFormData,
+  TResetPasswordFormData,
+  TUser,
+} from '@/types/authTypes'
 import { AxiosError } from 'axios'
 
 // type User = {
@@ -52,60 +57,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   //   register user function
-   const registerUser = async (data: TRegistrationFormData) => {
-      setIsLoading(true)
-  
-      if (data?.password !== data?.confirmPassword) {
-        toast.error('Passwords do not match')
-        setIsLoading(false)
-        return
-      }
-  
-      // save user to database
-      const payload = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        password: data.password,
-      }
-      try {
-        const response = await axiosPublic.post('/auth/register', payload)
-        console.log(response.data);
-        
-        if (response.data.success) {
-          toast.success('Account created successfully', {
-            description: 'You have been registered successfully.',
-          })
-          router.push('/')
-        }
-      } catch (err) {
-        const error = err as AxiosError<{ message: string }>
-        toast.error(error.response?.data?.message || 'Registration failed')
-      } finally {
-        setIsLoading(false)
-      }
+  const registerUser = async (data: TRegistrationFormData) => {
+    setIsLoading(true)
+
+    if (data?.password !== data?.confirmPassword) {
+      toast.error('Passwords do not match')
+      setIsLoading(false)
+      return
     }
-  
-  // const registerUser = async (payload: TRegistrationFormData) => {
-  //   try {
-  //     const response = await axiosPublic.post('/auth/register', payload)
-  //     if (response.data.success) {
-  //       toast.success('Account created successfully', {
-  //         description: 'You have been registered successfully.',
-  //       })
-  //       router.push('/')
-  //     }
-  //   } catch (error: any) {
-  //     toast.error(error.response?.data?.message || 'Registration failed')
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
+
+    // save user to database
+    const payload = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+    }
+    try {
+      const response = await axiosPublic.post('/auth/register', payload)
+
+      if (response.data.success) {
+        toast.success('Account created successfully', {
+          description: 'You have been registered successfully.',
+        })
+        router.push('/') // Redirect to home or login page
+      }
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>
+      toast.error(error.response?.data?.message || 'Registration failed')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   //   login user function
   const loginUser = async (payload: TLoginFormData) => {
     try {
       const response = await axiosPublic.post('/auth/login', payload)
+      console.log(response.data)
+
       if (response.data.success) {
         toast.success('Login successful', {
           description: 'You have been logged in successfully.',

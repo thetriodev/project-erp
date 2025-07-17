@@ -19,7 +19,11 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
 
 // * Login an existing user
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  const result = await AuthService.loginUser(req.body);
+  const result = await AuthService.loginUser(req.body)
+  //  set token in cookie
+  // Note: In production, set secure to true and use HTTPS
+
+  res.cookie('token', result.token, { httpOnly: true, secure: false, sameSite: 'strict' })
   sendResponse(res, {
     statusCode: httpStatusCode.OK,
     success: true,
