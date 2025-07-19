@@ -143,51 +143,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
   }
-  // const login = async (email: string, password: string) => {
-  //   setIsLoading(true)
-  //   try {
-  //     const response = await axiosPublic.post("/auth/login", { email, password })
-  //     if (response.data.success && response.data.user) {
-  //       const loggedInUser: User = response.data.user
-  //       setUser(loggedInUser)
-  //       localStorage.setItem("authUser", JSON.stringify(loggedInUser))
-  //       router.push("/dashboard")
-  //     } else {
-  //       throw new Error("Invalid login response")
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Login error:", error)
-  //     throw error // let the caller handle toast
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
-
-  // const register = async (name: string, email: string, password: string) => {
-  //   setIsLoading(true)
-  //   try {
-  //     const response = await axiosPublic.post("/auth/register", { name, email, password })
-  //     if (response.data.success && response.data.user) {
-  //       const newUser: User = response.data.user
-  //       setUser(newUser)
-  //       localStorage.setItem("authUser", JSON.stringify(newUser))
-  //       router.push("/dashboard")
-  //     } else {
-  //       throw new Error("Invalid registration response")
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Registration error:", error)
-  //     throw error // let the caller handle toast
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
-
-  // const logout = () => {
-  //   setUser(null)
-  //   localStorage.removeItem("authUser")
-  //   router.push("/")
-  // }
 
   const logoutUser = () => {
     setUser(null)

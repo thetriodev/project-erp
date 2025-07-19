@@ -1,8 +1,9 @@
+import { AdminDashboard } from "@/components/dashboard/admin/admin-dashboard"
+
 const AdminPage = () => {
   return (
     <div>
-      <h1>Admin Dashboard</h1>
-      {/* Admin-specific content goes here */}
+     <AdminDashboard />
     </div>
   )
 }

@@ -59,10 +59,10 @@ export function SideNavbar() {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       asChild
-                      isActive={pathname === '/dashboard/products'}
+                      isActive={pathname === '/dashboard/admin/products' || pathname === '/dashboard/manager/products'}
                       tooltip="Products"
                     >
-                      <Link href="/dashboard/products">
+                      <Link href="/dashboard/admin/products">
                         <Package className="h-4 w-4" />
                         <span>Products</span>
                       </Link>
@@ -72,10 +72,10 @@ export function SideNavbar() {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       asChild
-                      isActive={pathname === '/dashboard/memos'}
+                      isActive={pathname === '/dashboard/admin/memos' || pathname === '/dashboard/manager/memos'}
                       tooltip="Memos"
                     >
-                      <Link href="/dashboard/memos">
+                      <Link href="/dashboard/admin/memos">
                         <ClipboardList className="h-4 w-4" />
                         <span>Memos</span>
                       </Link>

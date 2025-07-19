@@ -7,7 +7,6 @@ import { IUser, TJwtPayload, TRole } from './auth.user.interface'
 import User from './auth.user.model'
 import { createToken } from './auth.utils'
 
-
 // * Register a new user
 const registerUser = async (payload: Partial<IUser>): Promise<Partial<IUser>> => {
   const user = await User.create(payload)
@@ -22,7 +21,6 @@ const loginUser = async (payload: {
 }): Promise<{ token: string; user: Partial<IUser> }> => {
   const { email, password } = payload
   // console.log(email, password);
-  
 
   // * Try to get user data with password by email
   const user = await User.findOne({ email }).select('+password')
