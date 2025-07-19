@@ -18,20 +18,17 @@ import {
 } from '@workspace/ui/components/sidebar'
 import { Button } from '@workspace/ui/components/button'
 import Image from 'next/image'
+import { useAuth } from '@/provider/authProvider'
 
 export function SideNavbar() {
-  //   const { user } = useAuth()
-  const user = {
-    role: 'owner',
-    name: 'John Doe',
-    email: 'xH3YH@example.com',
-  }
+  const { user } = useAuth()
+
   const pathname = usePathname()
 
   return (
     <Sidebar>
       {/* side bar header */}
-      <SidebarHeader className='border-b'>
+      <SidebarHeader className="border-b">
         <div className="flex items-center gap-2 px-4 py-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             ERP
@@ -57,8 +54,7 @@ export function SideNavbar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
-              {
-                // (user?.role === "owner" || user?.role === "manager") &&
+              {(user?.role === 'admin' || user?.role === 'manager') && (
                 <>
                   <SidebarMenuItem>
                     <SidebarMenuButton
@@ -86,10 +82,9 @@ export function SideNavbar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </>
-              }
+              )}
 
-              {
-                // user?.role === "owner" &&
+              {user?.role === 'admin' && (
                 <>
                   <SidebarMenuItem>
                     <SidebarMenuButton
@@ -117,7 +112,7 @@ export function SideNavbar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </>
-              }
+              )}
 
               <SidebarMenuItem>
                 <SidebarMenuButton
@@ -135,8 +130,7 @@ export function SideNavbar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {
-          // user?.role === "user" &&
+        {user?.role === 'user' && (
           <SidebarGroup>
             <SidebarGroupLabel>Actions</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -147,7 +141,7 @@ export function SideNavbar() {
               </div>
             </SidebarGroupContent>
           </SidebarGroup>
-        }
+        )}
       </SidebarContent>
       {/* side bar footer */}
       <SidebarFooter>
@@ -157,7 +151,7 @@ export function SideNavbar() {
               {user?.name ? (
                 <Image src="/default_user_img.png" alt={user?.name} fill className="object-cover" />
               ) : (
-                user.name
+                user?.name
                   .split(' ')
                   .map(n => n[0])
                   .join('')

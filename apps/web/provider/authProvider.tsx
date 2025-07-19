@@ -106,7 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toast.success('Login successful', {
           description: 'You have been logged in successfully.',
         })
-        setUser(response.data.data)
+        setUser(response.data.data.user)
         router.push('/dashboard')
       }
     } catch (error) {

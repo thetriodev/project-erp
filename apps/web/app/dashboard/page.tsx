@@ -1,34 +1,26 @@
-"use client"
+'use client'
 
-import { AdminDashboard } from "@/components/dashboard/admin/admin-dashboard"
-
-// import { useAuth } from "@/components/auth-provider"
-// import { OwnerDashboard } from "@/components/dashboard/owner-dashboard"
-// import { ManagerDashboard } from "@/components/dashboard/manager-dashboard"
-// import { UserDashboard } from "@/components/dashboard/user-dashboard"
-
+import { AdminDashboard } from '@/components/dashboard/admin/admin-dashboard'
+import { ManagerDashboard } from '@/components/dashboard/maneger/maneger-dashboard'
+import { UserDashboard } from '@/components/dashboard/user/user-dashboard'
+import DashboardSkeleton from '@/components/Skeletons/dashboard-skeleton'
+import { useAuth } from '@/provider/authProvider'
 
 export default function Dashboard() {
-    return <div>
-        <AdminDashboard />
-    </div>
-//   const { user, isLoading } = useAuth()
+  const { user, isLoading } = useAuth()
 
-//   if (isLoading) {
-//     return <DashboardSkeleton />
-//   }
+  // If user is loading or not authenticated, show skeleton
+  // This prevents rendering the dashboard until user data is ready
+  if (isLoading || !user) {
+    return <DashboardSkeleton />
+  }
 
-//   if (!user) {
-//     return null
-//   }
-
-//   switch (user.role) {
-//     case "owner":
-//       return <OwnerDashboard />
-//     case "manager":
-//       return <ManagerDashboard />
-//     default:
-//       return <UserDashboard />
-//   }
+  switch (user.role) {
+    case 'admin':
+      return <AdminDashboard />
+    case 'manager':
+      return <ManagerDashboard />
+    default:
+      return <UserDashboard />
+  }
 }
-
