@@ -20,7 +20,7 @@ const loginUser = async (payload: {
   password: string
 }): Promise<{ token: string; user: Partial<IUser> }> => {
   const { email, password } = payload
-  console.log(email, password);
+  // console.log(email, password);
   
 
   // * Try to get user data with password by email

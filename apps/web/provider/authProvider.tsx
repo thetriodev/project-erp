@@ -75,8 +75,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     try {
       const response = await axiosPublic.post('/auth/register', payload)
-
+      // now set user in localStorage
       if (response.data.success) {
+        localStorage.setItem('authUser', JSON.stringify(response.data.data))
         toast.success('Account created successfully', {
           description: 'You have been registered successfully.',
         })
@@ -92,10 +93,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   //   login user function
   const loginUser = async (payload: TLoginFormData) => {
+    setIsLoading(true)
     try {
       const response = await axiosPublic.post('/auth/login', payload)
-      console.log(response.data)
-
+      // now set user in localStorage
+      // localStorage.setItem('authUser', JSON.stringify(response.data.data))
+      
       if (response.data.success) {
         toast.success('Login successful', {
           description: 'You have been logged in successfully.',
