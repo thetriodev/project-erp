@@ -33,6 +33,22 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   next()
 }
 
+// logout function to clear the token cookie
+const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
+  const token = req?.cookies?.token
+  if (!token) {
+    return next(new Error('You are not logged in! Please log in to get access.'))
+  }
+  // Clear the token cookie
+  res.clearCookie('token')
+  sendResponse(res, {
+    statusCode: httpStatusCode.OK,
+    success: true,
+    message: 'Logout successful.',
+  })
+  next()
+}
+
 // * Update user profile (Accessible to manager and user)
 const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
   const user = req.user
@@ -123,4 +139,5 @@ export const AuthController = {
   getAllUsers: asyncHandler(getAllUsers),
   updateRole: asyncHandler(updateRole),
   updateActiveStatus: asyncHandler(updateActiveStatus),
+  logoutUser: asyncHandler(logoutUser),
 }

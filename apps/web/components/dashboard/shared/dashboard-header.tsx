@@ -14,12 +14,13 @@ import { SidebarTrigger } from '@workspace/ui/components/sidebar'
 
 import { Button } from '@workspace/ui/components/button'
 import { useTheme } from 'next-themes'
+import { useAuth } from '@/provider/authProvider'
 
 export function DashboardHeader() {
   const { setTheme } = useTheme()
-    
+  const { logoutUser } = useAuth()
+
   const user = { name: 'John Doe' }
-  const logout = () => {}
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-sidebar px-3">
@@ -68,7 +69,7 @@ export function DashboardHeader() {
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => logout()}>Logout</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => logoutUser()}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

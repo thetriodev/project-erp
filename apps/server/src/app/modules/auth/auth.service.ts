@@ -7,6 +7,7 @@ import { IUser, TJwtPayload, TRole } from './auth.user.interface'
 import User from './auth.user.model'
 import { createToken } from './auth.utils'
 
+
 // * Register a new user
 const registerUser = async (payload: Partial<IUser>): Promise<Partial<IUser>> => {
   const user = await User.create(payload)

@@ -18,6 +18,9 @@ router.post(
 // * Login an existing user
 router.post('/login', AuthController.loginUser)
 
+// * Logout user
+router.post('/logout', AuthController.logoutUser)
+
 // * Update user profile (Accessible to all authenticated users)
 router.patch(
   '/update-profile',

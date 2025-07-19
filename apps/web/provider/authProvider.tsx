@@ -12,6 +12,7 @@ import {
   TUser,
 } from '@/types/authTypes'
 import { AxiosError } from 'axios'
+import useAxiosSecure from '@/hooks/useAxiosSecure'
 
 // type User = {
 //   id: string
@@ -33,8 +34,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<TUser | null>(null)
+  console.log('AuthProvider user:', user)
+
   const [isLoading, setIsLoading] = useState(true)
   const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure()
   const router = useRouter()
 
   useEffect(() => {
@@ -77,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await axiosPublic.post('/auth/register', payload)
       // now set user in localStorage
       if (response.data.success) {
-        localStorage.setItem('authUser', JSON.stringify(response.data.data))
+        // localStorage.setItem('authUser', JSON.stringify(response.data.data))
         toast.success('Account created successfully', {
           description: 'You have been registered successfully.',
         })
@@ -96,22 +100,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true)
     try {
       const response = await axiosPublic.post('/auth/login', payload)
-      // now set user in localStorage
-      // localStorage.setItem('authUser', JSON.stringify(response.data.data))
-      
       if (response.data.success) {
+        // now set user in localStorage
+        localStorage.setItem('authUser', JSON.stringify(response.data.data.user))
         toast.success('Login successful', {
           description: 'You have been logged in successfully.',
         })
         setUser(response.data.data)
         router.push('/dashboard')
       }
-    } catch (error: any) {
-      if (error.response?.status === 401) {
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>
+      if (err.response?.status === 401) {
         toast.error('Invalid email or password')
       } else {
-        if (error.response?.data?.message) {
-          toast.error(error.response.data.message)
+        if (err.response?.data?.message) {
+          toast.error(err.response.data.message)
         } else {
           toast.error('Login failed')
         }
@@ -187,8 +191,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logoutUser = () => {
     setUser(null)
-    localStorage.removeItem('authUser')
-    router.push('/')
+    // clear token and remove user from localStorage
+    axiosSecure
+      .post('/auth/logout')
+      .then(() => {
+        localStorage.removeItem('authUser')
+        router.push('/')
+        toast.success('Logged out successfully', {
+          description: 'You have been logged out.',
+        })
+      })
+      .catch(error => {
+        console.error('Logout error:', error)
+        toast.error('Logout failed')
+      })
   }
 
   const authInfo: AuthContextType = {
