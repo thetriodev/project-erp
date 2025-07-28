@@ -1,8 +1,4 @@
 'use client'
-
-// import { AdminDashboard } from '@/components/dashboard/admin/admin-dashboard'
-// import { ManagerDashboard } from '@/components/dashboard/maneger/maneger-dashboard'
-// import { UserDashboard } from '@/components/dashboard/user/user-dashboard'
 import DashboardSkeleton from '@/components/Skeletons/dashboard-skeleton'
 import { useAuth } from '@/provider/authProvider'
 import { useRouter } from 'next/navigation'
